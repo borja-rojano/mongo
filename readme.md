@@ -4,7 +4,7 @@
 We need to select the db we want to use with `Use <db_name>`.
 
 #### Inserting Documents
-`db.myCollection.insert({object})` will add `object` to `myCollection`. 
+`db.myCollection.insert({object})` will add `object` to `myCollection`.
 If `myCollection` does not exist it will be created.
 
 #### Finding Items 
