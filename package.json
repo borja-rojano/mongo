@@ -1,0 +1,27 @@
+{
+  "name": "mongo",
+  "version": "1.0.0",
+  "description": "Mongo Tutorial",
+  "main": "app.js",
+  "scripts": {
+
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/borja-rojano/mongo.git"
+  },
+  "author": "Borja Rojano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/borja-rojano/mongo/issues"
+  },
+  "homepage": "https://github.com/borja-rojano/mongo#readme",
+  "dependencies": {
+    "assert": "^1.4.1",
+    "engines": "^0.4.0",
+    "express": "^4.14.0",
+    "live-server": "^1.2.0",
+    "nunjucks": "^3.0.0"
+  }
+}

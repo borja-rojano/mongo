@@ -2,10 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>My Mongo App</title>
+    <title>bor.ja</title>
 </head>
 <body>
-    <h1>Hello {{name}}</h1>
-    <a href="/movies">See Movies</a>
+<h1>Borja's Favourite Movies</h1>
+<ul>
+    {%for movie in movies%}
+    <li><a href="http://www.imdb.com/title/{{movie.imdb}}" target="_blank">{{movie.name}}</a><span> ({{movie.year}})</span></li>
+    {%endfor%}
+</ul>
 </body>
 </html>

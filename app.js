@@ -19,13 +19,8 @@ mongo.connect('mongodb://localhost:27017/video', function (err, db) {
     console.log('Connected to DB');
 
     app.get('/', function (req, res) {
-        res.render('index', {'name':'you'})
-    });
-
-    app.get('/movies', function (req, res) {
         db.collection('movies').find({}).toArray(function (err, docs) {
-            console.log(docs);
-            res.render('movies', {'movies': docs})
+            res.render('index', {'movies': docs})
         });
     });
 
