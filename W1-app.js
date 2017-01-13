@@ -1,7 +1,7 @@
 "use strict";
 
 var mongo = require('mongodb').MongoClient,
-    assert =require('assert'),
+    assert = require('assert'),
     express = require('express'),
     engines= require('consolidate'),
     app =express();
