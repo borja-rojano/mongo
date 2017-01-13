@@ -11,5 +11,9 @@
     <li><a href="http://www.imdb.com/title/{{movie.imdb}}" target="_blank">{{movie.name}}</a><span> ({{movie.year}})</span></li>
     {%endfor%}
 </ul>
+<h2>Enter New Movie</h2>
+<form action="/newMovie" method="post">
+    <input type="text" value="id" placeholder="Insert The IMDB movie id">
+</form>
 </body>
 </html>
