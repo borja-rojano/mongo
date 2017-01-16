@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bor.ja</title>
+</head>
+<body>
+    <h1>Added this movie To your collection</h1>
+
+    <div><a href="http://www.imdb.com/title/{{movie.imdbID}}" target="_blank"><img src="{{movie.Poster}}"></a>
+        <p>{{movie.Title}}</a><span> ({{movie.Year}})</span></p>
+    </div>
+
+    <h2>Add More Movies</h2>
+
+    <form action="/newMovie" method="post">
+        <input type="text" name="name" placeholder="Search by name">
+        <input type="submit" value="Search Again">
+    </form>
+
+</body>
+</html>

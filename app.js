@@ -5,7 +5,8 @@ var mongo = require('mongodb').MongoClient,
     express = require('express'),
     engines= require('consolidate'),
     bodyParser = require('body-parser'),
-    app =express();
+    app =express(),
+    imdb = require('./fetchMovie');
 
 app.engine('html', engines.nunjucks); //We register the nunjucks template engine to be associated with html extensions.
 app.set('view engine', 'html');       //Here we set the views engine of express to the 'html' engine we defined above.
@@ -19,7 +20,7 @@ app.use(bodyParser.urlencoded({extended: true}));   // to support URL-encoded bo
 
 // Launching the app
 
-mongo.connect('mongodb://localhost:27017/video', function (err, db) {
+mongo.connect('mongodb://localhost:27017/awesomeMovies', function (err, db) {
     assert.equal(null, err);
 
     console.log('Connected to DB');
@@ -31,11 +32,27 @@ mongo.connect('mongodb://localhost:27017/video', function (err, db) {
     });
 
     app.post('/newMovie', function (req, res) {
-        console.log(req.body);
-        var id = req.body.id;
-        res.send(`Searching for the movie with id: ${id}`);
-
+        
+        imdb.fetchMovie(req.body, function (err, movie) {
+            if (!err){
+                res.render('search-result', {'movie': movie});
+                db.collection('movies').insert(movie, function () {
+                    console.log('inserted');
+                });
+            };
+        });
     });
+
+    //API Endpoint for adding a movie
+
+    app.post('/add', function (req, res) {
+        imdb.fetchMovie(req.body, function (err, movie) {
+            if (!err){
+                res.send()
+            };
+        });
+    });
+
 
     app.use(function (req,res) {
         res.send('There is nothing here');

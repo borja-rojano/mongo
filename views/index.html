@@ -6,14 +6,16 @@
 </head>
 <body>
 <h1>Borja's Favourite Movies</h1>
-<ul>
+
     {%for movie in movies%}
-    <li><a href="http://www.imdb.com/title/{{movie.imdb}}" target="_blank">{{movie.name}}</a><span> ({{movie.year}})</span></li>
+<div><a href="http://www.imdb.com/title/{{movie.imdbID}}" target="_blank"><img src="{{movie.Poster}}"></a>
+        <p>{{movie.Title}}</a><span> ({{movie.Year}})</span></p>
+    </div>
     {%endfor%}
-</ul>
+
 <h2>Enter New Movie</h2>
 <form action="/newMovie" method="post">
-    <input type="text" name="id" placeholder="Insert The IMDB movie id">
+    <input type="text" name="name" placeholder="Search by name">
     <input type="submit" value="Submit">
 </form>
 </body>

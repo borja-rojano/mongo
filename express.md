@@ -83,14 +83,22 @@ We handle the POST requests by accessing the variables in `request.body`. Before
 
 See full info [here](http://stackoverflow.com/questions/5710358/how-to-retrieve-post-query-parameters).
 
+The middleware to parse the body of the requests -necessary for this kind of requests- is:
 
+```javascript
+var bodyParse = require(body-parser);
+
+app.use(bodyParser.json() );                       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({extended: true}));   // to support URL-encoded bodies
+
+```
  
- The actual request would look like this when we want to get a variable `foo` to sent to our url `bar` with a `post` method. 
+ The actual request would look like this when we want to get an object `foo` sent to our url `bar` with a `post` method. 
  
  ```javascript
 
     app.post('/bar', function(req, res) {
-      var foo = request.body.foo;
+      var foo = request.body.foo; // This is an object
     });
 
 ```
@@ -103,6 +111,44 @@ See full info [here](http://stackoverflow.com/questions/5710358/how-to-retrieve-
 <form action="/bar" method="post">
     <input type="text" value="foo">
 </form>
+
+```
+
+##Fetching data from an API
+Here is an example on how to get data from the IMDB api:
+```javascript
+
+function getMovie (name, callback){
+
+   //Name is a string with a search query, e.g. 'Fight+Club'.
+   //IMDB expects a search query with /?t=searchQuery
+
+    let options ={
+        hostname : 'www.omdbapi.com',
+        path : `/?t=${apiName}`
+    };    
+   
+
+    let req = http.get(options, function(res){
+        let received = '';
+        
+        //every time there is data, it gets added to received.
+        res.on('data', function(chunk){
+            received += chunk;                      
+        });
+        
+        //When done, we pass the parsed JSON to the callback of this function. 
+        res.on('end', function () {
+            var movie = JSON.parse(received) //
+            callback(null, movie);
+        });
+    });
+    
+    //If there is an error, we pass it to the callback.
+    req.on('error',function (error) {
+       callback(error, null);
+    });
+};
 
 ```
 
