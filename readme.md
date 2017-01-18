@@ -4,7 +4,7 @@
 ## CRUD
 We need to select the db we want to use with `Use <db_name>`.
 
-#### Inserting Documents
+## Inserting Documents
 `db.myCollection.insert({object})` will add `object` to `myCollection`.
 If `myCollection` does not exist it will be created.
 
@@ -33,7 +33,7 @@ We can pass an options object to the `insertMany` command:
 With the `{"ordered": false} ` option, mongo will keep inserting documents after it finds an error.
 
 
-### Finding Items 
+## Finding Documents 
 To find items in a collection `db.myCollection.find()`.
 If left empty, it will list all the objects in the collection.
 You can specify conditions that will be `and`. 
@@ -76,6 +76,24 @@ Projections are passed as the second argument to the `find` command.
 When we pass the projection, only the fields explicitly activated will be returned, with the exception of the `_id` field that is always returned unless we set it to 0.
 
 If we pass only fields with a value of 0, we are getting the full document minus those explicitly excluded fields.
+
+### Query Selectors
+[See the docs about query selectors](https://docs.mongodb.com/manual/reference/operator/query/#query-selectors)
+
+We can use an object in the value of a given field to use query selectors. for example:
+
+`db.myCollection.find({'runtime': {$gt:90} }, {'Title':1})`
+
+This will find all movies with a runtime greater than 90 minutes and return only their name. 
+
+We can combine them:
+
+`db.myCollection.find({'runtime': {$gt:90, $lt:120} }, {'Title':1})`
+
+The query above returns movies between 90 and 120 minutes.
+
+
+## Updating documents
 
 
 
