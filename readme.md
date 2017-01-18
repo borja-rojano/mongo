@@ -1,5 +1,5 @@
 # MongoDB Notes
-
+[See notes about express.js](https://github.com/borja-rojano/mongo/blob/master/express.md)
 ### Basic CRUD
 We need to select the db we want to use with `Use <db_name>`.
 
