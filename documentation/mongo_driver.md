@@ -90,6 +90,44 @@ cursor.project(projection);
 It is important to notice that the `project()` method does not make a call to the db. Rather, it provides additional detail to the cursor.
 
 
+## Queries
+
+See the construction of this query object:
+
+```javascript
+
+function queryDocument(options) {
+
+    console.log(options);
+    
+    //Note first the declaration of the object.
+    var query = {
+        "tag_list": { $regex: /social-networking/i}
+    };
+
+    if (("firstYear" in options) && ("lastYear" in options)) {
+        query.founded_year = { "$gte": options.firstYear, "$lte": options.lastYear};
+    } else if ("firstYear" in options) {
+        query.founded_year = { "$gte": options.firstYear };
+    } else if ("lastYear" in options) {
+        query.founded_year = { "$lte": options.lastYear };
+    }
+
+    if ("city" in options) {
+        // For documents nested in an array, see note below. Notice the [] for the dot notation.
+        query["offices.city"]= options.city;
+
+    }
+        
+    return query;
+    
+}
+
+```
+In the example above, `offices` is an array containing nested documents. 
+When we are searching for an equality match in an object that is part of an array, mongo behaves as if there would be one document containing one single entry of the array, per entry of the array.
+
+
 ## Skip, Limit, Sort
 
 These are methods that can be chained to the cursor object:
@@ -104,6 +142,8 @@ It is also possible to nest sorting criteria, like `year` first and then, within
 
 We could pass an object instead of an array but this would not guarantee the ordering of criteria.  
 
-`skip()` and `limit()` are self explanatory. Beware of how skip, limit and sort are ordered in the node.js script.  
+`skip()` and `limit()` are self explanatory. 
+ 
+ It is very important to understand that the driver will apply these methods in the following order.
  
  
