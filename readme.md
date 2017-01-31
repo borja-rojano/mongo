@@ -178,9 +178,16 @@ db.movieDetails.updateOne(
 ### Extracting Data From a Dump
 First you need to have the MongoDb server running, with `mongod`.
 Open another terminal.
-Navigate to the folder containing the `dump` folder and run.
+Navigate to the folder containing the `dump` folder and run `mongorestore dump`.
 Then you can run `mongo` and activate the mongo shell. 
 `show dbs` in the mongo shell will show you all databases.
+
+### Importing data in JSON format
+Whereas the `mongorestore` command works for binary data dumps, it is possible to import JSON objects into a collection as well.
+
+The syntax is:
+
+`mongoimport -d myDatabase -c my collection myJSON.json`
 
 ### Deleting a Database
 `drop` is the command to delete a database. 
